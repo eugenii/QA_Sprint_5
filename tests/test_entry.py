@@ -1,5 +1,4 @@
 import pytest
-from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -13,17 +12,17 @@ class TestEntry:
     
     EXPECTED_URL = "https://stellarburgers.nomoreparties.site/login"
     
-    def enter_account(self):
-        """Вход в аккаунт."""
-        email_element = WebDriverWait(self.chrome, 5).until(
+    def enter_account(self, chrome):
+        """Вход в аккаунт с формы логина."""
+        email_element = WebDriverWait(chrome, 5).until(
                 EC.presence_of_element_located((TE.ENTER_EMAIL_FIELD))
                 )
-        password_element = WebDriverWait(self.chrome, 5).until(
+        password_element = WebDriverWait(chrome, 5).until(
                 EC.presence_of_element_located((TE.ENTER_PASSWORD_FIELD))
                 )
         email_element.send_keys("eu@gmail.com")
         password_element.send_keys("123456Q")
-        button = WebDriverWait(self.chrome, 5).until(EC.element_to_be_clickable((Locators.SUBMIT_BUTTON)))
+        button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Locators.SUBMIT_BUTTON)))
         button.click()
 
     @pytest.mark.parametrize(
@@ -44,17 +43,8 @@ class TestEntry:
         WebDriverWait(chrome, 10).until(EC.url_to_be(self.EXPECTED_URL))
 
         if '/login' in chrome.current_url:
-
-            email_element = WebDriverWait(chrome, 5).until(
-                EC.presence_of_element_located((TE.ENTER_EMAIL_FIELD))
-                )
-            password_element = WebDriverWait(chrome, 5).until(
-                EC.presence_of_element_located((TE.ENTER_PASSWORD_FIELD))
-                )
-            email_element.send_keys("eu@gmail.com")
-            password_element.send_keys("123456Q")
-            button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Locators.SUBMIT_BUTTON)))
-            button.click()
+            
+            self.enter_account(chrome)
 
             assert 'https://stellarburgers.nomoreparties.site' in chrome.current_url
 
@@ -85,63 +75,10 @@ class TestEntryPersonalCab:
         button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Locators.PERSONAL_CAB_PAR)))
         button.click()
         if 'login' in chrome.current_url:
-            email_element = WebDriverWait(chrome, 5).until(
-                EC.presence_of_element_located((TE.ENTER_EMAIL_FIELD))
-                )
-            password_element = WebDriverWait(chrome, 5).until(
-                EC.presence_of_element_located((TE.ENTER_PASSWORD_FIELD))
-                )
-            email_element.send_keys("eu@gmail.com")
-            password_element.send_keys("123456Q")
-            button_re = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Locators.SUBMIT_BUTTON)))
-            button_re.click()
-            WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Locators.PERSONAL_CAB_PAR)))
-            button.click()
+            self.enter_account(chrome)
 
         WebDriverWait(chrome, 5).until(
             EC.presence_of_element_located(Locators.PROFILE_BUTTON)
         )
 
         assert 'account/profile' in chrome.current_url
-
-
-"""element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, 'ваш_локатор'))
-        
-https://stellarburgers.nomoreparties.site/account/profile  
-expected_url = "Ожидаемый URL"
-current_url = driver.current_url
-
-    def test_registration_page(self, chrome, name, email, password, result, comm):
-
-        chrome.get("https://stellarburgers.nomoreparties.site/register")
-
-        # Ожидаем появления полей
-        name_element = WebDriverWait(chrome, 5).until(
-            EC.presence_of_element_located(Locators.NAME_ENTRY_FIELD)
-        )
-        email_element = WebDriverWait(chrome, 5).until(
-                EC.presence_of_element_located(Locators.EMAIL_ENTRY_FIELD)
-        )
-        password_element = WebDriverWait(chrome, 5).until(
-                EC.presence_of_element_located(Locators.PASSWORD_ENTRY_FIELD)
-        )
-        registry_button = WebDriverWait(chrome, 5).until(
-                EC.element_to_be_clickable(Locators.REGISTRY_BUTTON)
-        )
-
-        # Очищаем поля перед вводом новых данных
-        name_element.clear()
-        email_element.clear()
-        password_element.clear()
-
-        name_element.send_keys(name)
-        email_element.send_keys(email)
-        password_element.send_keys(password)
-
-        registry_button.click()
-        print(registry_button.text)
-        assert registry_button.text != result, comm
-
-
-"""

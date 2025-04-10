@@ -1,3 +1,4 @@
+from time import sleep
 import pytest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -5,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from .tests.locators import TestLoginButtonLocators as Locators
 from .tests.locators import TestEnter as TE
+from .tests.locators import TestURLs as URLs
 
 
 
@@ -17,6 +19,8 @@ def chrome():
 
 @pytest.fixture(scope="function")
 def login(chrome):
+    """Enter to login page and login."""
+    chrome.get(URLs.LOGIN_PAGE)
     email_element = WebDriverWait(chrome, 5).until(
         EC.presence_of_element_located((TE.ENTER_EMAIL_FIELD))
     )
@@ -29,3 +33,10 @@ def login(chrome):
         EC.element_to_be_clickable((Locators.SUBMIT_BUTTON))
         )
     button.click()
+
+    # Проверка успешности авторизации
+    WebDriverWait(chrome, 10).until(
+        EC.url_changes(URLs.LOGIN_PAGE)
+    )
+
+    assert chrome.current_url == URLs.MAIN_PAGE, "Авторизация не завершилась успешно"

@@ -22,6 +22,10 @@ class TestURLs:
 
     FEED_PAGE = "https://stellarburgers.nomoreparties.site/feed"  # Стр. ленты
 
+    LOGIN_PAGE = "https://stellarburgers.nomoreparties.site/login"
+
+    PERSONAL_CAB_PAGE = "https://stellarburgers.nomoreparties.site/account/profile"
+
 
 class TestLoginButtonLocators:
     """Локаторы для  логина.кнопок входа."""
@@ -46,10 +50,18 @@ class TestEnter:
     ENTER_PASSWORD_FIELD = (By.XPATH, '//label[text()="Пароль"]/following-sibling::input')
     QUIT_BUTTON = (By.XPATH, '//button[text()="Выход"]')
 
-'''
-//*[@id="root"]/div/main/section[2]/div/button
-/html/body/div/div/header/nav/a/p
-//*[@id="root"]/div/main/div/div/p/a   восстановление
-//*[@id="root"]/div/main/div/div/p/a  
+class TestMovesFromPersonalCab:
+    """Локаторы для переходов из личного кабинета."""
 
-'''
+    CONSTRUCTOR_LABEL = (By.XPATH, '//p[text()="Конструктор"]')
+    ORDERS_BUTTON = (By.XPATH, '//a[text()="История заказов"]')
+    STELLAR_LOGO = (By.XPATH, '//div[contains(@class, "AppHeader_header__logo__2D0X2")]')
+    QUIT_LABEL = (By.XPATH, '//button[text()="Выход"]')
+
+
+class TestScrollElements:
+    """Локаторы для скроллинга."""
+
+    BULKI_BUTTON = (By.XPATH, '//div[contains(@class, "tab_tab__1SPyG") and .//span[text()="Булки"]]')
+    SAUCES_BUTTON = (By.XPATH, '//div[contains(@class, "tab_tab__1SPyG") and .//span[text()="Соусы"]]')
+    STICKS_BUTTON = (By.XPATH, '//div[contains(@class, "tab_tab__1SPyG") and .//span[text()="Начинки"]]')

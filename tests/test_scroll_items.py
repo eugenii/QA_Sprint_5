@@ -1,0 +1,43 @@
+
+import pytest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from .locators import TestURLs as URLs
+from .locators import TestScrollElements as Scroll
+
+
+class TestScrollItems:
+    """Класс тестирования скроллинга."""
+    
+    @pytest.mark.parametrize(
+        'locator, comm',
+        [
+            [Scroll.BULKI_BUTTON, "прокрутка до булок не сработала"],
+            [Scroll.SAUCES_BUTTON, "прокрутка до соусов не сработала"],
+            [Scroll.STICKS_BUTTON, "прокрутка до начинки не сработала"]
+        ]
+    )
+    def test_scroll_items(self, chrome, locator, comm):
+        """Тестирование скроллинга."""
+        
+        chrome.get(URLs.MAIN_PAGE)
+
+        # For Bulki only.
+        if locator == Scroll.BULKI_BUTTON:
+            pre_press = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Scroll.SAUCES_BUTTON)))
+            pre_press.click()
+
+        enter_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable(locator))
+        pre_class = enter_button.get_attribute("class")
+        enter_button.click()
+    
+
+        # Wait for the class to change.
+        WebDriverWait(chrome, 10).until(
+            lambda d: enter_button.get_attribute("class") != pre_class
+        )
+        post_class = enter_button.get_attribute("class")
+        
+        assert pre_class != post_class, comm
+        
