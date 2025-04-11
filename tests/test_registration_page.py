@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from .locators import TestRegistrationPageLocators as Locators
+from .locators import TestURLs
 
 
 class TestRegistrationPage:
@@ -19,7 +20,7 @@ class TestRegistrationPage:
     )
     def test_registration_page(self, chrome, name, email, password, result, comm):
 
-        chrome.get("https://stellarburgers.nomoreparties.site/register")
+        chrome.get(TestURLs.REGISTRATION_PAGE)
 
         # Ожидаем появления полей
         name_element = WebDriverWait(chrome, 5).until(

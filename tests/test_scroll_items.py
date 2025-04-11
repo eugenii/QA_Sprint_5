@@ -25,8 +25,9 @@ class TestScrollItems:
 
         # For Bulki only.
         if locator == Scroll.BULKI_BUTTON:
-            pre_press = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Scroll.SAUCES_BUTTON)))
-            pre_press.click()
+            sauces_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Scroll.SAUCES_BUTTON)))
+            if "active" not in sauces_button.get_attribute("class"):
+                sauces_button.click()
 
         enter_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable(locator))
         pre_class = enter_button.get_attribute("class")

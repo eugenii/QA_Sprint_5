@@ -68,7 +68,7 @@ class TestEntryPersonalCab:
                 URLs.FEED_PAGE
             ]
     )
-    def test_entry_personal_cab(self, chrome, url):
+    def test_entry_personal_cab(self, chrome, login, url):
         """Тест входа в личный кабинет."""
         chrome.get(url)
 
