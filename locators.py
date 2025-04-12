@@ -2,23 +2,6 @@
 from selenium.webdriver.common.by import By
 
 
-class TestURLs:
-    """URLs проверок."""
-
-    # Гл. страница.
-    MAIN_PAGE = "https://stellarburgers.nomoreparties.site/"  
-    # Стр. регистрации.
-    REGISTRATION_PAGE = "https://stellarburgers.nomoreparties.site/register"  
-    # Стр. восстановления.
-    RECOVERY_PAGE = "https://stellarburgers.nomoreparties.site/forgot-password"  
-    # Стр. ленты
-    FEED_PAGE = "https://stellarburgers.nomoreparties.site/feed"  
-    # Стр. входа (логин).
-    LOGIN_PAGE = "https://stellarburgers.nomoreparties.site/login"  
-    # Стр. "Личный кабинет".
-    PERSONAL_CAB_PAGE = "https://stellarburgers.nomoreparties.site/account/profile"  
-
-
 class TestRegistrationPageLocators:
     """Локаторы для страницы регистрации."""
     # Поле имя.

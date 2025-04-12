@@ -3,11 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from locators import TestLoginButtonLocators as Locators
-from locators import TestEnter as TE
-from urls import TestURLs as URLs
-from .management.helpers import createAuthPair
-
+from .locators import TestLoginButtonLocators as Locators
+from .locators import TestEnter as TE
+from .urls import TestURLs as URLs
 
 
 @pytest.fixture(scope="function")
@@ -20,7 +18,7 @@ def chrome():
 @pytest.fixture(scope="function")
 def login(chrome):
     """Enter to login page and login."""
-    
+
     chrome.get(URLs.LOGIN_PAGE)
     email_element = WebDriverWait(chrome, 5).until(
         EC.presence_of_element_located((TE.ENTER_EMAIL_FIELD))
@@ -39,4 +37,3 @@ def login(chrome):
     WebDriverWait(chrome, 10).until(
         EC.url_changes(URLs.LOGIN_PAGE)
     )
-
