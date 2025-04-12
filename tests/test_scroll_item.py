@@ -1,10 +1,9 @@
-
 import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from .locators import TestURLs as URLs
-from .locators import TestScrollElements as Scroll
+from ..urls import TestURLs as URLs
+from ..locators import TestScrollElements as Scroll
 
 
 class TestScrollItems:

@@ -2,8 +2,9 @@ import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from .locators import TestRegistrationPageLocators as Locators
-from .locators import TestURLs
+from ..locators import TestRegistrationPageLocators as Locators
+from ..urls import TestURLs
+from ..management.helpers import createAuthPair
 
 
 class TestRegistrationPage:
@@ -12,10 +13,11 @@ class TestRegistrationPage:
     @pytest.mark.parametrize(
             'name, email, password, result, comm',
             [
-                ["Eu", "eu@gmail.com", "123456Q", "Войти", "Неверная обработка данных регистрации"],
-                ["", "eu@gmail.com", "123456Q", "Войти", "Неверная обработка при пустом имени"],
-                ["Eu", "eu@gmail.com", "", "Войти", "Неверная обработка при пустом/коротком пароле"],
-                ["Eu", "eugmail.com", "", "Войти", "Неверная обработка неверном email"],
+                ["Eu", createAuthPair()[0], createAuthPair()[1], "Войти", "Неверная обработка данных регистрации"],
+                ["", createAuthPair()[0], createAuthPair()[1], "Войти", "Неверная обработка при пустом имени"],
+                ["Eu", createAuthPair()[0], createAuthPair(valid_password=False)[1], "Войти", "Неверная обработка при коротком пароле"],
+                ["Eu", createAuthPair()[0], "", "Войти", "Неверная обработка при пустом пароле пароле"],
+                ["Eu", createAuthPair(valid_email=False)[0], "", "Войти", "Неверная обработка неверном email"],
             ]
     )
     def test_registration_page(self, chrome, name, email, password, result, comm):
@@ -46,6 +48,6 @@ class TestRegistrationPage:
         password_element.send_keys(password)
 
         registry_button.click()
-        print(registry_button.text)
+
         assert registry_button.text != result, comm
 

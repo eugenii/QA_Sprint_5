@@ -2,9 +2,9 @@ import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from .locators import TestLoginButtonLocators as Locators
-from .locators import TestURLs as URLs
-from .locators import TestMovesFromPersonalCab as Moves
+from ..locators import TestLoginButtonLocators as Locators
+from ..urls import TestURLs as URLs
+from ..locators import TestMovesFromPersonalCab as Moves
 
 
 class TestMovesFromPersonalCab:

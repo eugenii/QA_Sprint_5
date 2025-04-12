@@ -3,9 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from .tests.locators import TestLoginButtonLocators as Locators
-from .tests.locators import TestEnter as TE
-from .tests.locators import TestURLs as URLs
+from locators import TestLoginButtonLocators as Locators
+from locators import TestEnter as TE
+from locators import TestURLs as URLs
 from .management.helpers import createAuthPair
 
 
