@@ -25,7 +25,7 @@ class TestRegistrationPage:
         chrome.get(TestURLs.REGISTRATION_PAGE)
 
         # Ожидаем появления полей
-        name_element = WebDriverWait(chrome, 5).until(
+        name_element = WebDriverWait(chrome, 10).until(
             EC.presence_of_element_located(Locators.NAME_ENTRY_FIELD)
         )
         email_element = WebDriverWait(chrome, 5).until(

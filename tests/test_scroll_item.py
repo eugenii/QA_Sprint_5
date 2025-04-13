@@ -10,11 +10,11 @@ class TestScrollItems:
     """Класс тестирования скроллинга."""
     
     @pytest.mark.parametrize(
-        'locator, comm',
+        'locator, locator_first, comm',
         [
-            [Scroll.BULKI_BUTTON, "прокрутка до булок не сработала"],
-            [Scroll.SAUCES_BUTTON, "прокрутка до соусов не сработала"],
-            [Scroll.STICKS_BUTTON, "прокрутка до начинки не сработала"]
+            [Scroll.BULKI_BUTTON, Scroll.SAUCES_BUTTON, "прокрутка до булок не сработала"],
+            [Scroll.SAUCES_BUTTON, Scroll.STICKS_BUTTON, "прокрутка до соусов не сработала"],
+            [Scroll.STICKS_BUTTON, Scroll.SAUCES_BUTTON, "прокрутка до начинки не сработала"]
         ]
     )
     def test_scroll_items(self, chrome, locator, comm):
@@ -22,11 +22,8 @@ class TestScrollItems:
         
         chrome.get(URLs.MAIN_PAGE)
 
-        # For Bulki only.
-        if locator == Scroll.BULKI_BUTTON:
-            sauces_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Scroll.SAUCES_BUTTON)))
-            if "active" not in sauces_button.get_attribute("class"):
-                sauces_button.click()
+        first_touch_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((locator_first)))
+        first_touch_button.click()
 
         enter_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable(locator))
         pre_class = enter_button.get_attribute("class")

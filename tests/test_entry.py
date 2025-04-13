@@ -45,12 +45,6 @@ class TestEntry:
         )
         assert chrome.current_url == URLs.MAIN_PAGE
 
-        # Выходим из аккаунта
-        pers_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((Locators.PERSONAL_CAB_PAR)))
-        pers_button.click()
-        quit_button = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((TE.QUIT_BUTTON)))
-        quit_button.click()
-
 
 class TestEntryPersonalCab:
     """Класс тестирования входа в личный кабинет."""
